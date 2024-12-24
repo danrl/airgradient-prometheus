@@ -1,0 +1,1392 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 1,
+    "id": 3,
+    "links": [],
+    "liveNow": true,
+    "panels": [
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 11,
+        "panels": [],
+        "title": "Overview",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 100,
+            "min": 40,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "blue",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 50
+                },
+                {
+                  "color": "yellow",
+                  "value": 86
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "fahrenheit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 0,
+          "y": 1
+        },
+        "id": 10,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "avg(temperature_f{instance=\"$instance\"})",
+            "instant": false,
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Ambient Temperature",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 80,
+            "min": 20,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 20
+                },
+                {
+                  "color": "green",
+                  "value": 30
+                },
+                {
+                  "color": "yellow",
+                  "value": 60
+                },
+                {
+                  "color": "red",
+                  "value": 70
+                }
+              ]
+            },
+            "unit": "humidity"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 4,
+          "y": 1
+        },
+        "id": 12,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "avg(humidity{instance=\"$instance\"})",
+            "instant": false,
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Relative Humidity",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 0,
+            "mappings": [],
+            "max": 12,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 7
+                },
+                {
+                  "color": "red",
+                  "value": 9
+                }
+              ]
+            },
+            "unit": "conμgm3"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 8,
+          "y": 1
+        },
+        "id": 13,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "10.0.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "avg(particulate_matter_2_5{instance=\"$instance\"})",
+            "instant": false,
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Particulate Matter",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "decimals": 0,
+            "mappings": [],
+            "max": 12,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 7
+                },
+                {
+                  "color": "red",
+                  "value": 9
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 12,
+          "y": 1
+        },
+        "id": 17,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "avg(particulate_matter_count{instance=\"$instance\"})",
+            "instant": false,
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Particle Count",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "0": {
+                    "color": "text",
+                    "index": 0,
+                    "text": "Off"
+                  },
+                  "1": {
+                    "color": "blue",
+                    "index": 1,
+                    "text": "On"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 16,
+          "y": 1
+        },
+        "id": 16,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "led_enabled{instance=\"$instance\"}",
+            "instant": false,
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "LED Status",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": -30,
+            "min": -90,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": -80
+                },
+                {
+                  "color": "#EAB839",
+                  "value": -70
+                },
+                {
+                  "color": "green",
+                  "value": -67
+                }
+              ]
+            },
+            "unit": "dBm"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 20,
+          "y": 1
+        },
+        "id": 9,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "10.0.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "wifi_signal_strength{device_name=\"airgradient\", instance=\"$instance\"}",
+            "instant": false,
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Wifi Signal Strength",
+        "type": "gauge"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 5
+        },
+        "id": 18,
+        "panels": [],
+        "title": "Climate",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "yellow",
+              "mode": "fixed",
+              "seriesBy": "last"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMax": 100,
+              "axisSoftMin": 48,
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "smooth",
+              "lineStyle": {
+                "fill": "solid"
+              },
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "dashed"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "blue",
+                  "value": null
+                },
+                {
+                  "color": "transparent",
+                  "value": 50
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "fahrenheit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 6
+        },
+        "id": 1,
+        "options": {
+          "legend": {
+            "calcs": [
+              "min",
+              "max",
+              "mean",
+              "range"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "avg(temperature_f{instance=\"$instance\"})",
+            "instant": false,
+            "legendFormat": "temperature",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Ambient Temperature",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "blue",
+              "mode": "fixed"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMax": 70,
+              "axisSoftMin": 30,
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "smooth",
+              "lineStyle": {
+                "fill": "solid"
+              },
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "humidity"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 6
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "calcs": [
+              "min",
+              "max",
+              "mean",
+              "range"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "avg(humidity{instance=\"$instance\"})",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "humidity",
+            "range": true,
+            "refId": "Relative Humidity"
+          }
+        ],
+        "title": "Relative Humidity",
+        "type": "timeseries"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 14
+        },
+        "id": 14,
+        "panels": [],
+        "title": "Air Quality",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#b1b1b1",
+              "mode": "fixed"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 14,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "smooth",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 15
+        },
+        "id": 4,
+        "options": {
+          "legend": {
+            "calcs": [
+              "min",
+              "max",
+              "mean",
+              "range"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "avg(particulate_matter_count{instance=\"$instance\"})",
+            "instant": false,
+            "legendFormat": "pm count",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Particulate Matter (Count)",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "description": "Particulate matter 1 microns or less in diameter.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#b1b1b1",
+              "mode": "fixed"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMax": 12,
+              "axisSoftMin": 0,
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 14,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "smooth",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "conμgm3"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 15
+        },
+        "id": 3,
+        "options": {
+          "legend": {
+            "calcs": [
+              "min",
+              "max",
+              "mean"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "avg(particulate_matter_1_0{instance=\"$instance\"})",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "pm 1",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Particulate Matter 1",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "description": "Particulate matter 2.5 microns or less in diameter.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#b1b1b1",
+              "mode": "fixed"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMax": 12,
+              "axisSoftMin": 0,
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 14,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "dashed"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "transparent",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 9
+                }
+              ]
+            },
+            "unit": "conμgm3"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 23
+        },
+        "id": 6,
+        "options": {
+          "legend": {
+            "calcs": [
+              "min",
+              "max",
+              "mean"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "avg(particulate_matter_2_5{instance=\"$instance\"})",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "pm 2.5",
+            "range": true,
+            "refId": "B"
+          }
+        ],
+        "title": "Particulate Matter 2.5",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "description": "Particulate matter 10 microns or less in diameter.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#b1b1b1",
+              "mode": "fixed"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMax": 160,
+              "axisSoftMin": 0,
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 14,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "smooth",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "dashed"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "transparent",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 150
+                }
+              ]
+            },
+            "unit": "conμgm3"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 23
+        },
+        "id": 5,
+        "options": {
+          "legend": {
+            "calcs": [
+              "min",
+              "max",
+              "mean"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "avg(particulate_matter_10_0{instance=\"$instance\"})",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "pm 10",
+            "range": true,
+            "refId": "C"
+          }
+        ],
+        "title": "Particulate Matter 10",
+        "type": "timeseries"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 31
+        },
+        "id": 15,
+        "panels": [],
+        "title": "System Monitoring",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMax": 2.5,
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "log": 10,
+                "type": "symlog"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "dashed"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "transparent",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 2
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 32
+        },
+        "id": 7,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "scrape_duration_seconds{instance=\"$instance\"}",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "duration",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Scrape Duration",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMax": -35,
+              "axisSoftMin": -72,
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "dashed"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": -70
+                },
+                {
+                  "color": "transparent",
+                  "value": -67
+                }
+              ]
+            },
+            "unit": "dBm"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 32
+        },
+        "id": 19,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+            },
+            "editorMode": "builder",
+            "expr": "wifi_signal_strength{instance=\"$instance\"}",
+            "instant": false,
+            "legendFormat": "signal strength",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Wifi Signal Strength",
+        "type": "timeseries"
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": true,
+            "text": "stardust",
+            "value": "stardust"
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
+          },
+          "definition": "label_values(particulate_matter_1_0,instance)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Measuring Station",
+          "multi": false,
+          "name": "instance",
+          "options": [],
+          "query": {
+            "query": "label_values(particulate_matter_1_0,instance)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "2024-12-19T08:00:00.000Z",
+      "to": "2024-12-21T07:59:59.000Z"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "AirGradient",
+    "uid": "f8b018c2-4591-4d9b-906e-27923101e40c",
+    "version": 36,
+    "weekStart": ""
+  }
+  

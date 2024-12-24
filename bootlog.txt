@@ -1,0 +1,17 @@
+[boot] connecting to wifi
+[boot] setting up web server
+[boot] setting up mdns
+[boot] http://airgradient.local/
+[boot] led: enabled
+[boot] finished
+
+sensor readings ------------------ primary -- secondary
+particulate matter 1.0 (µg/m³):          0            0
+particulate matter 2.5 (µg/m³):          1            0
+particulate matter 10.0 (µg/m³):         1            0
+particulate matter count:              237          267
+ambient temperature (c):                24           24
+ambient temperature (f):                75           75
+relative humidity (%):                  39           37
+sensor read count:                       1            1
+sensor read errors:                      0            0
