@@ -4,7 +4,7 @@
 #include <WiFi.h>
 #include <WiFiManager.h>
 #include <AsyncTCP.h>
-#include <ESPAsyncWebSrv.h>
+#include <ESPAsyncWebServer.h>
 #include <ESPmDNS.h>
 #include "PMS.h"
 
@@ -110,7 +110,7 @@ relative_humidity{device_type="airgradient-open-air",device_name="%DEVICE_NAME%"
 relative_humidity{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sensor="secondary"} %SECONDARY_RELATIVE_HUMIDITY%
 #
 # TYPE absolute_humidity gauge
-# HINT absolute_humidity Absolute humidity in gram per cubic meter. Calculated from relative humidity and temperature readings by the Plantower PMS5003T sensor. Approximation providing <= .1 percent error for temperatures between -30 degree celsius and +35 degree celsius.
+# HINT absolute_humidity Absolute humidity in gram per cubic meter. Calculated from relative humidity and temperature readings by the Plantower PMS5003T sensor. Approximation providing <= .1 percent error for temperatures between -30 degree Celsius and +35 degree Celsius.
 absolute_humidity{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sensor="primary"} %PRIMARY_ABSOLUTE_HUMIDITY%
 absolute_humidity{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sensor="secondary"} %SECONDARY_ABSOLUTE_HUMIDITY%
 #
@@ -181,10 +181,10 @@ void setup() {
     // set up web server
     Serial.println("[boot] setting up web server");
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-      request->send_P(200, "text/html", index_html, processor);
+      request->send(200, "text/html", index_html, processor);
     });
     server.on("/metrics", HTTP_GET, [](AsyncWebServerRequest *request){
-      request->send_P(200, "text/plain; version=0.0.4", metrics, processor);
+      request->send(200, "text/plain; version=0.0.4", metrics, processor);
       led_blink(); // blinking led indicates scraping
     });
     server.begin();
@@ -265,7 +265,7 @@ void print_sensor_data() {
     Serial.printf("ambient temperature (c):          %8.0f     %8.0f\n", primary_temperature_c, secondary_temperature_c);
     Serial.printf("ambient temperature (f):          %8.0f     %8.0f\n", primary_temperature_f, secondary_temperature_f);
     Serial.printf("relative humidity (%%):            %8.0f     %8.0f\n", primary_relative_humidity, secondary_relative_humidity);
-    Serial.printf("absolute humidity (%%):            %8.0f     %8.0f\n", primary_absolute_humidity, secondary_absolute_humidity);
+    Serial.printf("absolute humidity (g/m³):         %8.2f     %8.2f\n", primary_absolute_humidity, secondary_absolute_humidity);
     Serial.printf("sensor read count:                %8d     %8d\n", primary_read_count, secondary_read_count);
     Serial.printf("sensor read errors:               %8d     %8d\n", primary_read_errors, secondary_read_errors);
 }
@@ -287,7 +287,7 @@ String processor(const String& var){
   if (var == "PRIMARY_TEMPERATURE_C") return String(primary_temperature_c, 0);
   if (var == "PRIMARY_TEMPERATURE_F") return String(primary_temperature_f, 0);
   if (var == "PRIMARY_RELATIVE_HUMIDITY") return String(primary_relative_humidity, 0);
-  if (var == "PRIMARY_ABSOLUTE_HUMIDITY") return String(primary_absolute_humidity, 0);
+  if (var == "PRIMARY_ABSOLUTE_HUMIDITY") return String(primary_absolute_humidity, 2);
   if (var == "PRIMARY_READ_COUNT") return String(primary_read_count);
   if (var == "PRIMARY_READ_ERRORS") return String(primary_read_errors);
 
@@ -298,7 +298,7 @@ String processor(const String& var){
   if (var == "SECONDARY_TEMPERATURE_C") return String(secondary_temperature_c, 0);
   if (var == "SECONDARY_TEMPERATURE_F") return String(secondary_temperature_f, 0);
   if (var == "SECONDARY_RELATIVE_HUMIDITY") return String(secondary_relative_humidity, 0);
-  if (var == "SECONDARY_ABSOLUTE_HUMIDITY") return String(secondary_absolute_humidity, 0);
+  if (var == "SECONDARY_ABSOLUTE_HUMIDITY") return String(secondary_absolute_humidity, 2);
   if (var == "SECONDARY_READ_COUNT") return String(secondary_read_count);
   if (var == "SECONDARY_READ_ERRORS") return String(secondary_read_errors);
 
