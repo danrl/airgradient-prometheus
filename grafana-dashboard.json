@@ -182,7 +182,7 @@
               "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
             },
             "editorMode": "builder",
-            "expr": "avg(humidity{instance=\"$instance\"})",
+            "expr": "avg(relative_humidity{instance=\"$instance\"})",
             "instant": false,
             "range": true,
             "refId": "A"
@@ -704,7 +704,7 @@
               "uid": "b5941b89-0df2-4652-95dd-6e3bf61b5356"
             },
             "editorMode": "builder",
-            "expr": "avg(humidity{instance=\"$instance\"})",
+            "expr": "avg(relative_humidity{instance=\"$instance\"})",
             "hide": false,
             "instant": false,
             "legendFormat": "humidity",
