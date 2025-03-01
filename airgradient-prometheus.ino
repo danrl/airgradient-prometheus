@@ -13,26 +13,28 @@ const char* device_name = "airgradient";
 bool        led_enabled = true; // mutable by button push
 
 // primary sensor variable initialization
-float primary_pm_1_0           = 0.0;
-float primary_pm_2_5           = 0.0;
-float primary_pm_10_0          = 0.0;
-float primary_pm_count         = 0.0;
-float primary_temperature_c    = 0.0;
-float primary_temperature_f    = 0.0;
-float primary_humidity         = 0.0;
-long  primary_read_count       = 0;
-long  primary_read_errors      = 0;
+float primary_pm_1_0              = 0.0;
+float primary_pm_2_5              = 0.0;
+float primary_pm_10_0             = 0.0;
+float primary_pm_count            = 0.0;
+float primary_temperature_c       = 0.0;
+float primary_temperature_f       = 0.0;
+float primary_relative_humidity   = 0.0;
+float primary_absolute_humidity   = 0.0;
+long  primary_read_count          = 0;
+long  primary_read_errors         = 0;
 
 // secondary sensor variable initialization
-float secondary_pm_1_0         = 0.0;
-float secondary_pm_2_5         = 0.0;
-float secondary_pm_10_0        = 0.0;
-float secondary_pm_count       = 0.0;
-float secondary_temperature_c  = 0.0;
-float secondary_temperature_f  = 0.0;
-float secondary_humidity       = 0.0;
-long  secondary_read_count     = 0;
-long  secondary_read_errors    = 0;
+float secondary_pm_1_0            = 0.0;
+float secondary_pm_2_5            = 0.0;
+float secondary_pm_10_0           = 0.0;
+float secondary_pm_count          = 0.0;
+float secondary_temperature_c     = 0.0;
+float secondary_temperature_f     = 0.0;
+float secondary_relative_humidity = 0.0;
+float secondary_absolute_humidity = 0.0;
+long  secondary_read_count        = 0;
+long  secondary_read_errors       = 0;
 
 const char index_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
@@ -102,10 +104,15 @@ temperature_c{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sen
 temperature_f{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sensor="primary"} %PRIMARY_TEMPERATURE_F%
 temperature_f{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sensor="secondary"} %SECONDARY_TEMPERATURE_F%
 #
-# TYPE humidity gauge
-# HINT humidity Relative humidity in percent. Measured by the Plantower PMS5003T sensor.
-humidity{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sensor="primary"} %PRIMARY_RELATIVE_HUMIDITY%
-humidity{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sensor="secondary"} %SECONDARY_RELATIVE_HUMIDITY%
+# TYPE relative_humidity gauge
+# HINT relative_humidity Relative humidity in percent. Measured by the Plantower PMS5003T sensor.
+relative_humidity{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sensor="primary"} %PRIMARY_RELATIVE_HUMIDITY%
+relative_humidity{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sensor="secondary"} %SECONDARY_RELATIVE_HUMIDITY%
+#
+# TYPE absolute_humidity gauge
+# HINT absolute_humidity Absolute humidity in gram per cubic meter. Calculated from relative humidity and temperature readings by the Plantower PMS5003T sensor. Approximation providing <= .1 percent error for temperatures between -30 degree celsius and +35 degree celsius.
+absolute_humidity{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sensor="primary"} %PRIMARY_ABSOLUTE_HUMIDITY%
+absolute_humidity{device_type="airgradient-open-air",device_name="%DEVICE_NAME%",sensor="secondary"} %SECONDARY_ABSOLUTE_HUMIDITY%
 #
 # TYPE read_count counter
 # HINT read_count Sensor read count since last boot.
@@ -127,7 +134,7 @@ AsyncWebServer server(80);
 
 // interrupt handler
 // button push changes LED enabled state
-// e.g. to disable blinking lights at nighttime
+// e.g. to disable blinking lights at night time
 // happy wife -> happy life :)
 void IRAM_ATTR isr() {
   std::lock_guard<std::mutex> lck(mtx);
@@ -225,7 +232,8 @@ void read_sensors() {
     primary_pm_count = data_primary.PM_RAW_0_3;
     primary_temperature_c = data_primary.AMB_TMP / 10;
     primary_temperature_f = (primary_temperature_c * 1.8) + 32;
-    primary_humidity = data_primary.AMB_HUM / 10;
+    primary_relative_humidity = data_primary.AMB_HUM / 10;
+    primary_absolute_humidity = absolute_humidity(primary_relative_humidity, primary_temperature_c);
   } else {
     primary_read_errors++;
   }
@@ -238,7 +246,8 @@ void read_sensors() {
     secondary_pm_count = data_secondary.PM_RAW_0_3;
     secondary_temperature_c = data_secondary.AMB_TMP / 10;
     secondary_temperature_f = (secondary_temperature_c * 1.8) + 32;
-    secondary_humidity = data_secondary.AMB_HUM / 10;
+    secondary_relative_humidity = data_secondary.AMB_HUM / 10;
+    secondary_absolute_humidity = absolute_humidity(secondary_relative_humidity, secondary_temperature_c);
   } else {
     secondary_read_errors++;
   }
@@ -255,7 +264,8 @@ void print_sensor_data() {
     Serial.printf("particulate matter count:         %8.0f     %8.0f\n", primary_pm_count, secondary_pm_count);
     Serial.printf("ambient temperature (c):          %8.0f     %8.0f\n", primary_temperature_c, secondary_temperature_c);
     Serial.printf("ambient temperature (f):          %8.0f     %8.0f\n", primary_temperature_f, secondary_temperature_f);
-    Serial.printf("relative humidity (%%):            %8.0f     %8.0f\n", primary_humidity, secondary_humidity);
+    Serial.printf("relative humidity (%%):            %8.0f     %8.0f\n", primary_relative_humidity, secondary_relative_humidity);
+    Serial.printf("absolute humidity (%%):            %8.0f     %8.0f\n", primary_absolute_humidity, secondary_absolute_humidity);
     Serial.printf("sensor read count:                %8d     %8d\n", primary_read_count, secondary_read_count);
     Serial.printf("sensor read errors:               %8d     %8d\n", primary_read_errors, secondary_read_errors);
 }
@@ -276,7 +286,8 @@ String processor(const String& var){
   if (var == "PRIMARY_PM_COUNT") return String(primary_pm_count, 0);
   if (var == "PRIMARY_TEMPERATURE_C") return String(primary_temperature_c, 0);
   if (var == "PRIMARY_TEMPERATURE_F") return String(primary_temperature_f, 0);
-  if (var == "PRIMARY_RELATIVE_HUMIDITY") return String(primary_humidity, 0);
+  if (var == "PRIMARY_RELATIVE_HUMIDITY") return String(primary_relative_humidity, 0);
+  if (var == "PRIMARY_ABSOLUTE_HUMIDITY") return String(primary_absolute_humidity, 0);
   if (var == "PRIMARY_READ_COUNT") return String(primary_read_count);
   if (var == "PRIMARY_READ_ERRORS") return String(primary_read_errors);
 
@@ -286,13 +297,19 @@ String processor(const String& var){
   if (var == "SECONDARY_PM_COUNT") return String(secondary_pm_count, 0);
   if (var == "SECONDARY_TEMPERATURE_C") return String(secondary_temperature_c, 0);
   if (var == "SECONDARY_TEMPERATURE_F") return String(secondary_temperature_f, 0);
-  if (var == "SECONDARY_RELATIVE_HUMIDITY") return String(secondary_humidity, 0);
+  if (var == "SECONDARY_RELATIVE_HUMIDITY") return String(secondary_relative_humidity, 0);
+  if (var == "SECONDARY_ABSOLUTE_HUMIDITY") return String(secondary_absolute_humidity, 0);
   if (var == "SECONDARY_READ_COUNT") return String(secondary_read_count);
   if (var == "SECONDARY_READ_ERRORS") return String(secondary_read_errors);
 
   return String();
 }
 
+// we do metric here, because science. returning g/m^3
+// to get pound per cubic foot we can multiply by 0.000062428 downstream
+float absolute_humidity(float relative_humidity, float temperature_c) {
+  return (6.112 * pow(2.71828, (17.67 * temperature_c)/(temperature_c +243.5)) * relative_humidity * 2.1674) / (273.15 + temperature_c);
+}
 
 void led_on() {
   if (led_enabled) {
